@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+      <html lang="en">
+      <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <meta http-equiv="X-UA-Compatible" content="ie=edge">
+          <title>API Docs</title>
+      </head>
+      <body>
+
+<h1>ESCOJA SU UNIVERSIDAD</h1>
+
+<form action="{{url_for('valor')}}" method="post">
+
+    <select name="comp_select" class="Input">
+        {% for o in data %}
+        <option value="{{ o.nombre }}">{{ o.nombre }}</option>
+        {% endfor %}
+  </select>
+
+    <a href="/aptos/valor">
+        <button>oli</button></a>
+
+
+     <h3><br/>Para formulario de postulación:</h3>
+     <a href="/aptos/formulario">
+        <button>POSTULARME</button></a>
+    <p>¡Recuerde que para postularse debe<br/>recordar el id del apartamento de interés!<br/></p>
+      </body>
+      </html>
