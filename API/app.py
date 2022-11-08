@@ -5,6 +5,7 @@ import pandas as pd
 import database_login as dbase
 from user import Signup
 from uploadinfo_query import infouni
+import folium
 
 db= dbase.DBconnection()
 
@@ -54,13 +55,12 @@ def user():
 @app.route('/valor', methods=['GET', 'POST'])
 def valor():
     select = request.form.get("comp_select")
-    coordenadas = infouni(str(select))
+    coor, coordenadas = infouni(str(select))
+    mapa = map(coor, coordenadas)
 
-    for i  in coordenadas:
-        print (i)
-        print(type(i))
+    print(type(coordenadas))
 
-    return []
+    return mapa
     
 
 
@@ -90,6 +90,25 @@ def api_mongo_insert():
         data = parse_form()
         mongo_insert_one(data)
         return redirect(url_for('api_root'))
+
+def map(coords, coordenadas):
+    start_coords = [ coords[1], coords[0] ]
+    
+    folium_map = folium.Map(location=start_coords, zoom_start=15)
+     
+    folium.CircleMarker(start_coords,     
+                        radius=2, weight=5,
+                        color='red').add_to(folium_map)
+    folium.LayerControl().add_to(folium_map)
+
+    for i in coordenadas:
+
+        folium.Marker(location= [i["location"]["coordinates"][1], i["location"]["coordinates"][0]]).add_to(folium_map)
+        folium.LayerControl().add_to(folium_map)
+
+
+
+    return folium_map._repr_html_()
 
 
 def create_mongo_session(database, collection):

@@ -21,7 +21,6 @@ def infouni(uni):
     for i in cursor:
     #{'location': {'coordinates': [-76.52048592608172, 3.353740400019329]}}
         coor = i["location"]["coordinates"]
-    
 
     #Query de los aptos cercanos a las coordenadas que se sacaron:
     query= {"location":{"$nearSphere": {
@@ -30,15 +29,16 @@ def infouni(uni):
             "coordinates" : coor } } } }
 
    
-
     print (f"Los apartamentos más cercanos a {uni} son:")
-    cursor = collection2.find(query).limit(5)
+    cursor = collection2.find(query).limit(100)
+
+    
     
     coordenadas = []
     for i in cursor:
         coordenadas.append(i)
         
-    return (coordenadas)
+    return (coor, coordenadas)
 
 if __name__ == '__main__':
     infouni()
