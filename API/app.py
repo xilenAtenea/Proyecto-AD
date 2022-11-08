@@ -4,6 +4,7 @@ from pymongo import MongoClient
 import pandas as pd
 import database_login as dbase
 from user import Signup
+from uploadinfo_query import infouni
 
 db= dbase.DBconnection()
 
@@ -23,10 +24,7 @@ def inicio():
 #Buscar aptos
 @app.route('/aptos', methods=['GET'])
 def api_root():
-    return render_template('docs2.html', data = [{ "nombre": "Universidad Autónoma de Occidente" }, { "nombre": "Universidad ICESI"},{ "nombre": "Institución universitaria Antonio José Camacho"},
-{ "nombre": "Universidad de San Buenaventura Cali"},
-{ "nombre": "Universidad Libre (Sede San Fernando)"},
-{ "nombre": "Universidad Cooperativa de Colombia"}])
+    return render_template('docs2.html', data = [{ "nombre": "Universidad Autónoma de Occidente" }, { "nombre": "Universidad ICESI"},{ "nombre": "Institución universitaria Antonio José Camacho"},{ "nombre": "Universidad de San Buenaventura Cali"},{ "nombre": "Universidad Libre (Sede San Fernando)"},{ "nombre": "Universidad Cooperativa de Colombia"}])
 
 
 
@@ -51,13 +49,23 @@ def user():
 
 
 
-"""
+
 #Con esto se ve que si sale el valor que se seleccione en el docs2
 @app.route('/valor', methods=['GET', 'POST'])
 def valor():
-    select = request.form.get('comp_select')
-    return(str(select)) 
+    select = request.form.get("comp_select")
+    coordenadas = infouni(str(select))
 
+    for i  in coordenadas:
+        print (i)
+        print(type(i))
+
+    return []
+    
+
+
+
+"""
 #Para buscar todos, no lo estamos usando.
 @app.route('/api/v2/mongo/find/all', methods=['GET'])
 def api_mongo_find_all():

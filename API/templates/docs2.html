@@ -10,7 +10,7 @@
 
 <h1>ESCOJA SU UNIVERSIDAD</h1>
 
-<form action="http://localhost:35081/aptos" method="post">
+<form action="/valor" method="post">
 
     <select name="comp_select" class="Input">
         {% for o in data %}
@@ -18,9 +18,13 @@
         {% endfor %}
   </select>
 
+    <button type="submit"> Valor </button>
+
 
     <h3><br/>Para formulario de postulación:</h3>
-    <a href="/aptos/formulario"><button>POSTULARME</button></a> */cuando le da con click derecho, si deja ir al formulario, cuando es normal, da error\*
+    <a href="/aptos/formulario">
+      <input type="button" value="POSTULARME" />
+   </a>
     <p>¡Recuerde que para postularse debe<br/>recordar el id del apartamento de interés!<br/></p>
       </body>
       </html>
