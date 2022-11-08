@@ -1,19 +1,38 @@
 <!DOCTYPE html>
-      <html lang="en">
-      <head>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <meta http-equiv="X-UA-Compatible" content="ie=edge">
-          <title>API Docs</title>
-      </head>
-      <body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARRENDADOR LONG IN</title>
+    
 
-<h1>BIENVENIDO</h1>
-     <p>Inicie su sesion</p>
+</head>
+<body>
 
+    <div class="container">
+        <h1 class="text-center mt-5 mb-5">BIENVENIDO</h1>
+    </div>
 
-
-     <a href="/inicio/postulados">
-          <button>Prueba query</button></a>
-      </body>
-      </html>
+    <div class="container">
+        <div class="row row-col-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-2">
+            <div class="col-md-6 mb-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="text-center">Ingresa tus datos</h3>
+                    </div>
+                    <div class="card-body">
+                        <form action="/inicio/datos" method="POST">
+                            <label>Nombre<br/></label>
+                            <input type="text" class="form-control mb-3" name="name">
+                            <label><br/>Email<br/></label>
+                            <input type="email" class="form-control mb-3" name="email">
+                            <label><br/>Contraseña<br/></label>
+                            <input type="password" class="form-control mb-3" name="password">
+                            <button class="btn btn-primary" type="submit">Ingresar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
