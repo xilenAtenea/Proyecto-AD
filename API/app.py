@@ -5,6 +5,7 @@ import pandas as pd
 import database_login as dbase
 from user import Signup
 from uploadinfo_query import infouni
+from popup import popup_html
 import folium
 
 db= dbase.DBconnection()
@@ -56,9 +57,9 @@ def user():
 def valor():
     select = request.form.get("comp_select")
     coor, coordenadas = infouni(str(select))
-    mapa = map(coor, coordenadas)
+    nombre_u = str(select)
+    mapa = map(coor, coordenadas, nombre_u)
 
-    print(type(coordenadas))
 
     return mapa
     
@@ -78,32 +79,38 @@ def api_mongo_find():
     if request.method == 'GET':
         return render_template('query.html')
     elif request.method == 'POST':
-        data = parse_form()
-        return mongo_find(data)
+        datas = parse_form()
+        lista = mongo_find(datas)
+        return render_template('query.html', data = lista )
 
 
-@app.route('/aptos/formulario', methods=['GET', 'POST'])
-def api_mongo_insert():
+@app.route('/aptos/formulario/<id_apart>', methods=['GET', 'POST'])
+def api_mongo_insert(id_apart):
     if request.method == 'GET':
-        return render_template('mongoinsert.html')
+        return render_template('mongoinsert.html', data ={'idApto': id_apart})
     elif request.method == 'POST':
         data = parse_form()
         mongo_insert_one(data)
         return redirect(url_for('api_root'))
 
-def map(coords, coordenadas):
+def map(coords, coordenadas, nombre_u):
     start_coords = [ coords[1], coords[0] ]
     
     folium_map = folium.Map(location=start_coords, zoom_start=15)
      
-    folium.CircleMarker(start_coords,     
-                        radius=2, weight=5,
-                        color='red').add_to(folium_map)
+    folium.Marker(start_coords,     
+                        icon=folium.Icon(color='darkred'),
+                        popup= str(nombre_u)).add_to(folium_map)
     folium.LayerControl().add_to(folium_map)
 
     for i in coordenadas:
 
-        folium.Marker(location= [i["location"]["coordinates"][1], i["location"]["coordinates"][0]]).add_to(folium_map)
+        html= popup_html(i)
+
+        folium.Marker(location= [i["location"]["coordinates"][1], i["location"]["coordinates"][0]],
+                    popup= folium.Popup(folium.Html(html, script=True), max_width=500)
+        
+                    ).add_to(folium_map)
         folium.LayerControl().add_to(folium_map)
 
 
@@ -130,9 +137,9 @@ def parse_form():
 def mongo_find(query):
     _, col = create_mongo_session('Enikio', 'infoPostulados')
     find_result = []
-    for i in col.find(query, {'_id': 0}):
+    for i in col.find(query, {'_id': 0, 'aprobacion': 0, 'idApto':0}):
         find_result.append(i)
-    return str(find_result)
+    return find_result
 
 
 def mongo_insert_one(doc):
