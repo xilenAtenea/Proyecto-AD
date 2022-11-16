@@ -4,18 +4,46 @@
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <meta http-equiv="X-UA-Compatible" content="ie=edge">
+          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
           <title>Document</title>
       </head>
       <body>
-          <h2>Envíe este formulario para postularse</h2>
-          <form action="http://localhost:35081/aptos/formulario" method="POST">
-              <p>ID del apto de interes</p><input type="text" name="idApto" value="{{data.idApto}}" readonly/>
-              <p>Nombre completo</p><input type="text" name="nombre"/>
-              <p>Ocupacion</p><input type="text" name="ocupación"/>
-              <p>Telefono</p><input type="text" name="teléfono"/>
-              <p>¿En qué está interesado (respecto al apartamento)? (Vivir solo, en familia, busca roomies, etc)</p><input type="text" name="interes"/>
-              <p><input type="checkbox" name="aprobacion"/>Acepto el tratamiento de mis datos personales.</p>
-              <input type="submit" value="ENVIAR">
-         </form>
+          <h2>Envíe este formulario para postularse:</h2>
+          <div class="mt-5 container-sm">
+            <form action='/aptos/formulario/<id_apart>' method="POST">
+                <div class="mb-3">
+                    <label for="formInput" class="form-label">Apartamento de Interes</label>
+                    <input type="text" class="form-control" id="formInput" name="idApto" value="{{data.idApto}}" readonly/>
+                </div>
+                <div class="mb-3">
+                    <label for="formInput2" class="form-label">Nombre completo</label>
+                    <input type="text" class="form-control" id="formInput2" name="nombre"/>
+                </div>
+                <div class="mb-3">
+                    <label for="formInput3" class="form-label">Ocupación</label>
+                    <input type="text" class="form-control" id="formInput3" name="ocupación"/>
+                </div>
+                <div class="mb-3">
+                    <label for="formInput4" class="form-label">Teléfono</label>
+                    <input type="text" class="form-control" id="formInput4" name="teléfono"/>
+                </div>
+                <div class="mb-3">
+                    <label for="formInput5" class="form-label">¿En qué está interesado (respecto al apartamento)? (Vivir solo, en familia, busca roomies, etc)</label>
+                    <input type="text" class="form-control" id="formInput5" name="interes"/>
+                </div>
+                <div><p><input type="checkbox" name="aprobacion"/>Acepto el tratamiento de mis datos personales.</p>
+                </div>
+                
+                
+                <button class="btn btn-primary" type="submit" style="background-color: #0F843B">Ingresar</button>
+            </form>
+        </div>
       </body>
       </html>
+
+
+
+<style>
+
+   
+</style>
